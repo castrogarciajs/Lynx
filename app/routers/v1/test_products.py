@@ -1,7 +1,19 @@
 from app.main import app
+from sqlalchemy import create_engine
+from sqlalchemy.orm import declarative_base, sessionmaker
 from fastapi.testclient import TestClient
 
 client = TestClient(app)
+SQLALCHEMY_DATABASE_URL = "sqlite:///test.sqlite"
+
+
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL, echo=True, connect_args={"check_same_thread": False}
+)
+
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+Base = declarative_base()
 
 URL_BASE = "/api/v1"
 

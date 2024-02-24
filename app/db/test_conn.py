@@ -1,7 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy import text
-import pytest
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///test.sqlite"
 
@@ -15,7 +14,6 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 
-@pytest.mark.skip(reason="Select succesfully")
 def test_connection_sqlite():
     with engine.connect() as conn:
         query = conn.execute(text("SELECT 'Hola, Mundo'"))
@@ -25,7 +23,6 @@ def test_connection_sqlite():
         assert isinstance(result, list)
 
 
-@pytest.mark.skip(reason="Table test alredy exits")
 def test_save_value():
     with engine.connect() as conn:
         conn.execute(text("CREATE TABLE test (x int, y int)"))
@@ -37,7 +34,6 @@ def test_save_value():
         conn.commit()
 
 
-@pytest.mark.skip(reason="Return value integer perfect")
 def test_returns_value():
     with engine.connect() as conn:
         result = conn.execute(text("SELECT x, y FROM test"))

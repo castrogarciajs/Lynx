@@ -41,7 +41,7 @@ async def create_product(
         db.query(models.User)
         .filter(models.User.email == current_user.get("sub"))
         .first()
-    )
+    ) 
 
     on_validate_admin(user.role)
 
