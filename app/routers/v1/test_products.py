@@ -18,7 +18,7 @@ def test_get_products_authorized():
 
     response_login = client.post(
         f"{URL_BASE}/auth/login",
-        json={"email": "test@email.com", "password": "1234567S_*"},
+        json={"email": "cagesev3@email.com", "password": "1234567S_*"},
     )
 
     token = dict(response_login.json()).get("access_token")

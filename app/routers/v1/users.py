@@ -131,13 +131,12 @@ async def register(user_credentials: types.UserCreate, db: Session = Depends(get
                 "status": status.HTTP_400_BAD_REQUEST,
             },
         )
-
     db_user = models.User(
-        name=user["name"],
-        email=user["email"],
-        password=user["password"],
-        phone=user["phone"],
-        role=user["role"],
+        name=user.get("name"),
+        email=user.get("email").lower(),
+        password=user.get("password"),
+        phone=user.get("phone"),
+        role=user.get("role"),
     )
 
     db.add(db_user)
