@@ -1,6 +1,3 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
-
 name: Ci with Github Actions
 
 on:
@@ -27,8 +24,15 @@ jobs:
           pip install flake8 pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Set up environment
-        run: echo "$SQLALCHEMY_DATABASE_URL" > .env
+        run: |
+          echo "JWT_SECRET=$JWT_SECRET" >> .env
+          echo "SECRET_KEY=$SECRET_KEY" >> .env
+          echo "ACCESS_TOKEN_EXPIRE_MINUTES=$ACCESS_TOKEN_EXPIRE_MINUTES" >> .env
+          echo "ALGORITHM=$ALGORITHM" >> .env
         env:
-          ENV_FILE: ${{ secrets.SQLALCHEMY_DATABASE_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          ACCESS_TOKEN_EXPIRE_MINUTES: ${{ secrets.ACCESS_TOKEN_EXPIRE_MINUTES }}
+          ALGORITHM: ${{ secrets.ALGORITHM }}
       - name: Test with pytest
         run: pytest -vvs
