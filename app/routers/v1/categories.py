@@ -22,9 +22,7 @@ async def get_category(
     on_validate_admin(user.role)
 
     categories = db.query(models.Category).all()
-
-    print("contenido de la categoria", categories[0])
-
+    
     return {
         "message": "Get categoty in commerces",
         "db": categories,
